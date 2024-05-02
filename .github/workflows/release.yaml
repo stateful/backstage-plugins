@@ -32,9 +32,6 @@ jobs:
       - name: Build type declarations
         run: yarn tsc
 
-      - name: Build packages
-        run: yarn build:all
-
       - name: Create Release Pull Request
         uses: changesets/action@v1
         with:
