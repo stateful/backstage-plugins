@@ -1,4 +1,10 @@
-# backstage-plugin-stateful-backend
+---
+runme:
+  id: 01HWXTNSCJ5ZMDFJZS2WSREWH4
+  version: v3
+---
+
+# backstage-plugin-stateful-backend-test
 
 ## 2.0.0
 
