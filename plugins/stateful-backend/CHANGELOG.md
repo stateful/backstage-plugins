@@ -1,5 +1,11 @@
 # backstage-plugin-stateful-backend
 
+## 2.0.0
+
+### Major Changes
+
+- eb0bc7c: test
+
 ## 1.0.0
 
 ### Major Changes
