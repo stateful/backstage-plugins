@@ -38,16 +38,17 @@ export async function createRouter(
 
   const router = Router();
 
-  if (!userInfo || !dbClient || !httpAuth) {
-    return router;
-  }
-
+  
   router.use(express.json());
-
+  
   router.get('/health', (_, response) => {
     logger.info('PONG!');
     response.json({ status: 'ok' });
   });
+  
+  if (!userInfo || !dbClient || !httpAuth) {
+    return router;
+  }
 
   router.get('/me', async (req, res) => {
     const _userInfo = await getUserInfo(userInfo, httpAuth, req);

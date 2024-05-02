@@ -1,0 +1,43 @@
+    
+name: Release
+on:
+  push:
+    branches: [main]
+
+env:
+    NODE_VERSION: 20.x
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release:
+    name: Create Changeset PR
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
+
+      - name: Install Dependencies
+        run: yarn install --immutable
+
+      - name: Build type declarations
+        run: yarn tsc
+
+      - name: Build packages
+        run: yarn build:all
+
+      - name: Create Release Pull Request
+        uses: changesets/action@v1
+        with:
+          version: yarn version
+          publish: yarn release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
