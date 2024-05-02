@@ -3,4 +3,4 @@
 'backstage-plugin-stateful-backend': patch
 ---
 
-Test
+0.0.1
