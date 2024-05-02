@@ -1,4 +1,9 @@
 ---
+
+## 3.0.0
+### Major Changes
+
+- 1fa7545: sadasd
 runme:
   id: 01HWXTNSCJ5ZMDFJZS2WSREWH4
   version: v3
