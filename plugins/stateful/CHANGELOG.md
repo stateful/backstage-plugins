@@ -1,5 +1,11 @@
 # backstage-plugin-stateful
 
+## 2.0.0
+
+### Major Changes
+
+- bee5f2f: test
+
 ## 1.0.0
 
 ### Major Changes
