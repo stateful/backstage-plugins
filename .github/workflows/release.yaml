@@ -35,5 +35,7 @@ jobs:
 
       - name: Create Release Pull Request
         uses: changesets/action@v1
+        with:
+          version: yarn version      
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
