@@ -22,7 +22,9 @@
     "lint": "backstage-cli repo lint --since origin/master",
     "lint:all": "backstage-cli repo lint",
     "prettier:check": "prettier --check .",
-    "new": "backstage-cli new --scope internal"
+    "new": "backstage-cli new --scope internal",
+    "version": "changeset version && yarn install --no-immutable && (git commit -am 'Update internal dependencies' || true)",
+    "release": "changeset publish"
   },
   "workspaces": {
     "packages": [
@@ -54,5 +56,8 @@
     "*.{json,md}": [
       "prettier --write"
     ]
+  },
+  "dependencies": {
+    "@changesets/cli": "^2.27.1"
   }
 }
