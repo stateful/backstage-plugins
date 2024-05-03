@@ -1,10 +1,6 @@
-# [Backstage](https://backstage.io)
+# Stateful Backstage Plugins
 
-This is your newly scaffolded Backstage App, Good Luck!
+## Plugins
 
-To start the app, run:
-
-```sh
-yarn install
-yarn dev
-```
+- [Stateful](plugins/stateful)
+- [Stateful Backend](plugins/stateful-backend)
