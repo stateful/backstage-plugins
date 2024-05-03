@@ -1,5 +1,11 @@
 # @statefulhq/backstage-plugin-stateful-backend
 
+## 1.0.0
+
+### Major Changes
+
+- 02c8a0b: 1.0.0
+
 ## 0.0.1
 
 ### Patch Changes
