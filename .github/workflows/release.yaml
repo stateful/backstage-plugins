@@ -36,7 +36,7 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: echo "Publishing to npm"
+          publish: echo "Publishing to npm "
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TEST_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
