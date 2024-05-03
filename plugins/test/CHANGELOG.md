@@ -1,5 +1,11 @@
 # @statefulhq/backstage-plugin-stateful
 
+## 1.0.0
+
+### Major Changes
+
+- 23fa5fb: test
+
 ## 0.0.1
 
 ### Patch Changes
