@@ -20,14 +20,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # - name: Use Node.js ${{ env.NODE_VERSION }}
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: ${{ env.NODE_VERSION }}
-      #     cache: 'yarn'
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
 
-      # - name: Install Dependencies
-      #   run: yarn install --immutable
+      - name: Install Dependencies
+        run: yarn install --immutable
 
       # - name: Build type declarations
       #   run: yarn tsc
