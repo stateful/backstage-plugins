@@ -27,7 +27,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install Dependencies
-        run: yarn install --immutable
+        run: yarn install --immutable @changesets/cli
 
       # - name: Build type declarations
       #   run: yarn tsc
