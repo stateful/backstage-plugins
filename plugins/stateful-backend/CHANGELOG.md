@@ -4,6 +4,12 @@
 
 ### Patch Changes
 
+- 2c59a01: 0.0.1
+
+## 0.0.1
+
+### Patch Changes
+
 - f9fa4e8: 0.0.1
 
 ## 1.0.0
