@@ -1,13 +1,14 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: stateful
-  description: An example of a Backstage application.
-  # Example for optional annotations
-  # annotations:
-  #   github.com/project-slug: backstage/backstage
-  #   backstage.io/techdocs-ref: dir:.
+  name: backstage-plugins
+  namespace: stateful
+  description: Stateful Backstage Plugins
+  annotations:
+    github.com/project-slug: stateful/backstage-plugins
 spec:
-  type: website
-  owner: john@example.com
-  lifecycle: experimental
+  type: service
+  lifecycle: production
+  owner: user:stateful/peraltafederico
+  providesApis:
+    - component:stateful/backstage
