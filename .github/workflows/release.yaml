@@ -38,5 +38,5 @@ jobs:
         with:
           publish: echo "Publishing to npm    "
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PR_GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
