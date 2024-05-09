@@ -21,15 +21,8 @@ export const statefulPlugin = createBackendPlugin({
         userInfo: coreServices.userInfo,
         httpAuth: coreServices.httpAuth,
       },
-      async init({
-        httpRouter,
-        logger,
-        httpAuth,
-        userInfo,
-        database
-      }) {
-
-        const dbClient = await database.getClient()
+      async init({ httpRouter, logger, httpAuth, userInfo, database }) {
+        const dbClient = await database.getClient();
 
         if (!database.migrations?.skip) {
           logger.info('Performing database migration');
@@ -40,7 +33,7 @@ export const statefulPlugin = createBackendPlugin({
             logger,
             httpAuth,
             userInfo,
-            dbClient 
+            dbClient,
           }),
         );
         httpRouter.addAuthPolicy({

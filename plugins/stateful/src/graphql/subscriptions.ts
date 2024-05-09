@@ -1,4 +1,4 @@
-import { gql } from "../__generated__";
+import { gql } from '../__generated__';
 
 export const SUBSCRIPTION_CHAT = gql(`
   subscription SubscriptionChat {
@@ -8,4 +8,4 @@ export const SUBSCRIPTION_CHAT = gql(`
       done
     }
   }
-`)
+`);

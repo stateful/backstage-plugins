@@ -1,4 +1,13 @@
-import { Avatar, Box, Container, Grid, IconButton, InputAdornment, LinearProgress, OutlinedInput } from '@material-ui/core';
+import {
+  Avatar,
+  Box,
+  Container,
+  Grid,
+  IconButton,
+  InputAdornment,
+  LinearProgress,
+  OutlinedInput,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import SendIcon from '@material-ui/icons/Send';
@@ -18,111 +27,112 @@ const useStyles = makeStyles({
   question: {
     backgroundColor: 'rgba(255, 255, 255, 0.16)',
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   input: {
     display: 'flex',
-  }
+  },
 });
 
 const WelcomeBox = () => {
-  const { resetTypingKey } = useChat()
+  const { resetTypingKey } = useChat();
   return (
-    <Grid item xs={8}> 
+    <Grid item xs={8}>
       <TypewriterEmptyState key={resetTypingKey} />
     </Grid>
-  )
-}
+  );
+};
 
 type QuestionBoxProps = {
-  question: ChatType['question']
-}
+  question: ChatType['question'];
+};
 
 type ResponseBoxProps = {
-  response: ChatType['response']
-  question?: ChatType['question']
-  hits: ChatType['hits']
-  done?: boolean
-}
+  response: ChatType['response'];
+  question?: ChatType['question'];
+  hits: ChatType['hits'];
+  done?: boolean;
+};
 
 const QuestionBox: React.FC<QuestionBoxProps> = ({ question }) => {
   const classes = useStyles();
-  return  (<Grid item xs={12} className={classes.question}>
-            <Grid item xs={8} className={classes.avatar}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                <Box m={1}>{question}</Box>
-            </Grid>
-          </Grid>)
-}
+  return (
+    <Grid item xs={12} className={classes.question}>
+      <Grid item xs={8} className={classes.avatar}>
+        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+        <Box m={1}>{question}</Box>
+      </Grid>
+    </Grid>
+  );
+};
 const ResponseBox: React.FC<ResponseBoxProps> = ({
   response,
   question,
   hits,
   done = true,
 }) => {
-  const entry = hits?.[0]
-  const metahash = useMemo(() => toMetahash(entry), [entry])
+  const entry = hits?.[0];
+  const metahash = useMemo(() => toMetahash(entry), [entry]);
   const languageId = useMemo(() => {
-    return metahash?.languageId
-  }, [metahash])
+    return metahash?.languageId;
+  }, [metahash]);
 
   return (
-     <Grid item xs={8}>
-           {done ? (
-            <MarkdownRenderer languageId={languageId}>
-              {response}
-            </MarkdownRenderer>
-          ) : (
-            <div>
-               {response}
-            </div>
-          )}
-          <ResponseBoxContent hits={hits} question={question} />
-      </Grid>
-  )
-}
+    <Grid item xs={8}>
+      {done ? (
+        <MarkdownRenderer languageId={languageId}>{response}</MarkdownRenderer>
+      ) : (
+        <div>{response}</div>
+      )}
+      <ResponseBoxContent hits={hits} question={question} />
+    </Grid>
+  );
+};
 
 export const Chat = () => {
-
   const classes = useStyles();
-  const [inputValue, setInputValue] = useState('')
-  const { clearHistories, chatHistory, currentQuestion, currentMessage, submitQuestion } =
-    useChat()
+  const [inputValue, setInputValue] = useState('');
+  const {
+    clearHistories,
+    chatHistory,
+    currentQuestion,
+    currentMessage,
+    submitQuestion,
+  } = useChat();
 
-  const loading = currentQuestion !== null
-    
+  const loading = currentQuestion !== null;
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    e.persist()
+    e.persist();
     if (e.key === 'Enter' && e.shiftKey) {
-      return
+      return;
     }
     if (e.key === 'Enter' && !loading) {
-      e.preventDefault()
-      submitQuestion(inputValue)
-      setInputValue('')
+      e.preventDefault();
+      submitQuestion(inputValue);
+      setInputValue('');
     }
-  }
+  };
 
   return (
     <Container>
-     <Grid container xs={12}  justifyContent='center' alignItems='center'>
-      <WelcomeBox />
-      {chatHistory.map((chat) => (
-        <>
-          <QuestionBox question={chat.question} />
-          <ResponseBox
-            response={chat.response}
-            question={chat.question}
-            hits={chat.hits}
-          />
-        </>
-      ))}
-      {currentQuestion && <QuestionBox question={currentQuestion} />}
+      <Grid container xs={12} justifyContent="center" alignItems="center">
+        <WelcomeBox />
+        {chatHistory.map(chat => (
+          <>
+            <QuestionBox question={chat.question} />
+            <ResponseBox
+              response={chat.response}
+              question={chat.question}
+              hits={chat.hits}
+            />
+          </>
+        ))}
+        {currentQuestion && <QuestionBox question={currentQuestion} />}
         {currentQuestion && !currentMessage && (
-        <Grid item xs={8}>
-          <LinearProgress />
-        </Grid>
+          <Grid item xs={8}>
+            <LinearProgress />
+          </Grid>
         )}
         {currentMessage && (
           <>
@@ -132,26 +142,36 @@ export const Chat = () => {
               done={currentMessage.done}
             />
           </>
-      )}
+        )}
         <Grid item xs={8} className={classes.input}>
-          <OutlinedInput id="" fullWidth onKeyDown={handleKeyDown} onChange={(e)=>setInputValue(e.target.value)} value={inputValue}  endAdornment={
-            <InputAdornment position="end" >
-              <IconButton
-                onClick={()=>{
-                  submitQuestion(inputValue) 
-                  setInputValue('')
-                }}
-              >
-                <SendIcon />
-              </IconButton>
-            </InputAdornment>
-          }/>
-            <IconButton onClick={()=>{clearHistories()}}>
-              <RestoreFromTrashIcon/>
-            </IconButton>
+          <OutlinedInput
+            id=""
+            fullWidth
+            onKeyDown={handleKeyDown}
+            onChange={e => setInputValue(e.target.value)}
+            value={inputValue}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={() => {
+                    submitQuestion(inputValue);
+                    setInputValue('');
+                  }}
+                >
+                  <SendIcon />
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+          <IconButton
+            onClick={() => {
+              clearHistories();
+            }}
+          >
+            <RestoreFromTrashIcon />
+          </IconButton>
         </Grid>
       </Grid>
     </Container>
-        
   );
 };

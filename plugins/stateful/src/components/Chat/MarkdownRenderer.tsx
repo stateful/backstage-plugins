@@ -1,18 +1,19 @@
 // import 'github-markdown-css/github-markdown.css'
-import '../..//markdown.css'
+import '../..//markdown.css';
 
-import React, { ReactNode } from 'react'
+import React, { ReactNode } from 'react';
 
-import ReactMarkdown, { Components } from 'react-markdown'
+import ReactMarkdown, { Components } from 'react-markdown';
+import { solarizedDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import remarkGfm from 'remark-gfm';
 import {
-  solarizedDark
-} from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import remarkGfm from 'remark-gfm'
-import { resolveLanguage, SyntaxHighlighter } from '../../utils/syntaxLanguages'
+  resolveLanguage,
+  SyntaxHighlighter,
+} from '../../utils/syntaxLanguages';
 
 interface MarkdownRendererProps {
-  languageId: string
-  children: ReactNode
+  languageId: string;
+  children: ReactNode;
 }
 
 // TODO: Probably we can reuse Code component here to avoid duplication.
@@ -22,7 +23,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
 }) => {
   const components = {
     p: ({ ...props }) => {
-      return <div>{props.children}</div>
+      return <div>{props.children}</div>;
     },
     code: ({ children: codeChildren }: { children: ReactNode }) => (
       <div className="inline">
@@ -45,17 +46,17 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
         </SyntaxHighlighter>
       </div>
     ),
-  } as Components
+  } as Components;
 
   return (
-      <ReactMarkdown
-        components={components}
-        remarkPlugins={[remarkGfm]}
-        className="markdown-body"
-      >
-        {String(children)}
-      </ReactMarkdown>
-  )
-}
+    <ReactMarkdown
+      components={components}
+      remarkPlugins={[remarkGfm]}
+      className="markdown-body"
+    >
+      {String(children)}
+    </ReactMarkdown>
+  );
+};
 
-export default MarkdownRenderer
+export default MarkdownRenderer;

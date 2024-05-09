@@ -3,7 +3,7 @@ import { identityApiRef, useApi } from '@backstage/core-plugin-api';
 import axios from 'axios';
 import useUrl from '../useUrl';
 
-export const GET_ME = 'GET_ME'; 
+export const GET_ME = 'GET_ME';
 
 export const useGetMe = () => {
   const identityApi = useApi(identityApiRef);

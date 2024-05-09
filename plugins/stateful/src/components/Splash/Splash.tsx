@@ -25,7 +25,6 @@ import useUrl from '../../hooks/api/useUrl';
 import { Chat } from '../Chat';
 import { Integration } from '../Integration';
 
-
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: 'rgba(0, 0, 0, .11)',
@@ -58,7 +57,7 @@ export const Splash = () => {
 
   const { data: userData } = useGetMe();
 
-  const apolloClient = initializeClient(uri, userData?.statefulToken)
+  const apolloClient = initializeClient(uri, userData?.statefulToken);
 
   const sections = [
     {
@@ -69,9 +68,11 @@ export const Splash = () => {
     {
       label: 'Chat',
       key: 'chat',
-      component: <ChatProvider>
-    <Chat />
-  </ChatProvider>,
+      component: (
+        <ChatProvider>
+          <Chat />
+        </ChatProvider>
+      ),
     },
     {
       label: 'Integration',

@@ -1,23 +1,29 @@
-import { ApolloClient, ApolloLink, FetchResult, HttpLink, InMemoryCache, Operation, split } from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloLink,
+  FetchResult,
+  HttpLink,
+  InMemoryCache,
+  Operation,
+  split,
+} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { getMainDefinition } from '@apollo/client/utilities';
-import { Client, ClientOptions, createClient } from "graphql-sse";
+import { Client, ClientOptions, createClient } from 'graphql-sse';
 
-import {
-  Observable
-} from '@apollo/client/core';
+import { Observable } from '@apollo/client/core';
 import { print } from 'graphql';
 
 class SSELink extends ApolloLink {
   private client: Client;
- 
+
   constructor(options: ClientOptions) {
     super();
     this.client = createClient(options);
   }
- 
+
   public request(operation: Operation): Observable<FetchResult> {
-    return new Observable((sink) => {
+    return new Observable(sink => {
       return this.client.subscribe<FetchResult>(
         { ...operation, query: print(operation.query) },
         {
@@ -30,8 +36,8 @@ class SSELink extends ApolloLink {
   }
 }
 
-export const initializeClient = (uri: string, token?: string) =>{
-  const httpLink = new HttpLink({ uri })
+export const initializeClient = (uri: string, token?: string) => {
+  const httpLink = new HttpLink({ uri });
 
   const sseLink = new SSELink({
     url: uri,
@@ -41,7 +47,7 @@ export const initializeClient = (uri: string, token?: string) =>{
         'Auth-Provider': 'auth0',
       };
     },
-  })
+  });
 
   const authLink = setContext(async () => {
     return {
@@ -50,7 +56,7 @@ export const initializeClient = (uri: string, token?: string) =>{
         'Auth-Provider': 'auth0',
       },
     };
-  })
+  });
 
   const splitLink = split(
     ({ query }) => {
@@ -62,12 +68,12 @@ export const initializeClient = (uri: string, token?: string) =>{
     },
     sseLink,
     authLink.concat(httpLink),
-  )
+  );
 
   const client = new ApolloClient({
     link: splitLink,
     cache: new InMemoryCache(),
   });
 
-  return client
-}
+  return client;
+};

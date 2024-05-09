@@ -1,5 +1,4 @@
-import { gql } from "../__generated__";
-
+import { gql } from '../__generated__';
 
 export const GET_LOGS_LIST = gql(`
   query GetLogList($page: Int!, $take: Int, $filters: JSON) {
@@ -24,7 +23,7 @@ export const GET_LOGS_LIST = gql(`
       }
     }
   }
-`)
+`);
 
 export const GET_CHAT_RESPONSE = gql(`
   query getChatResponse($input: ChatInput!) {
@@ -49,4 +48,4 @@ export const GET_CHAT_RESPONSE = gql(`
       }
     }
   }
-`)
+`);

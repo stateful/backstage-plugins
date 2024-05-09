@@ -15,91 +15,93 @@ import {
   GetChatResponseQuery,
   GetChatResponseQueryVariables,
   SubscriptionChatSubscription,
-  SubscriptionChatSubscriptionVariables
+  SubscriptionChatSubscriptionVariables,
 } from '../__generated__/graphql';
 import { GET_CHAT_RESPONSE } from '../graphql/queries';
 import { SUBSCRIPTION_CHAT } from '../graphql/subscriptions';
 
 interface ChatContextProps {
-  chatHistory: Chat[]
-  currentQuestion: string | null
-  currentMessage: ChatMessage | null
-  submitQuestion: (question: string) => void
-  clearHistories: () => void
-  resetTypingKey: number
-  sessionId: string | null
-  useSession: boolean
-  toggleUseSession: () => void
-  resetSessionId: () => void
+  chatHistory: Chat[];
+  currentQuestion: string | null;
+  currentMessage: ChatMessage | null;
+  submitQuestion: (question: string) => void;
+  clearHistories: () => void;
+  resetTypingKey: number;
+  sessionId: string | null;
+  useSession: boolean;
+  toggleUseSession: () => void;
+  resetSessionId: () => void;
 }
 
 export const ChatContext = createContext<ChatContextProps | undefined>(
-  undefined
-)
+  undefined,
+);
 
 interface ChatProviderProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export const ChatProvider: FC<ChatProviderProps> = ({ children }) => {
-  const [chatHistory, setChatHistory] = useState<Chat[]>([])
+  const [chatHistory, setChatHistory] = useState<Chat[]>([]);
   const [storedChatHistory, setStoredChatHistory] =
-    useLocalStorageState<string>('chatHistory', { defaultValue: '[]' })
+    useLocalStorageState<string>('chatHistory', { defaultValue: '[]' });
 
-  const [resetTypingKey, setResetTypingKey] = useState(0)
-  const [useSession, setUseSession] = useState(true)
-  const [sessionId, setSessionId] = useState<string | null>(null)
+  const [resetTypingKey, setResetTypingKey] = useState(0);
+  const [useSession, setUseSession] = useState(true);
+  const [sessionId, setSessionId] = useState<string | null>(null);
 
   // Load chat history from local storage when the component mounts
   useEffect(() => {
     try {
-      const parsedHistory: Chat[] = JSON.parse(storedChatHistory)
-      setChatHistory(parsedHistory)
+      const parsedHistory: Chat[] = JSON.parse(storedChatHistory);
+      setChatHistory(parsedHistory);
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error('Error parsing stored chat history:', error)
+      console.error('Error parsing stored chat history:', error);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   // Save chat history to local storage whenever it changes
   useEffect(() => {
     try {
-      const simpleChatHistory = chatHistory.map((chat) => {
+      const simpleChatHistory = chatHistory.map(chat => {
         return {
           question: chat.question,
           response: chat.response,
           commands: chat.commands,
           hits: chat.hits,
-        }
-      })
+        };
+      });
 
-      const historyJson = JSON.stringify(simpleChatHistory)
-      setStoredChatHistory(historyJson)
+      const historyJson = JSON.stringify(simpleChatHistory);
+      setStoredChatHistory(historyJson);
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error('Error stringifying chat history:', error)
+      console.error('Error stringifying chat history:', error);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chatHistory])
+  }, [chatHistory]);
 
   const resetSessionId = () => {
-    setSessionId(null)
-  }
+    setSessionId(null);
+  };
 
   const clearHistories = () => {
-    resetSessionId()
-    setChatHistory([])
-    setStoredChatHistory('[]') // Clear stored chat history in local storage
-    setResetTypingKey((prev) => prev + 1)
-  }
+    resetSessionId();
+    setChatHistory([]);
+    setStoredChatHistory('[]'); // Clear stored chat history in local storage
+    setResetTypingKey(prev => prev + 1);
+  };
 
   const toggleUseSession = () => {
-    setUseSession((prev) => !prev)
-  }
+    setUseSession(prev => !prev);
+  };
 
-  const [currentQuestion, setCurrentQuestion] = useState<string | null>(null)
-  const [currentMessage, setCurrentMessage] = useState<ChatMessage | null>(null)
+  const [currentQuestion, setCurrentQuestion] = useState<string | null>(null);
+  const [currentMessage, setCurrentMessage] = useState<ChatMessage | null>(
+    null,
+  );
 
   const { data: chatData } = useQuery<
     GetChatResponseQuery,
@@ -112,43 +114,43 @@ export const ChatProvider: FC<ChatProviderProps> = ({ children }) => {
       },
     },
     skip: currentQuestion === null,
-  })
+  });
 
   useEffect(() => {
     if (chatData?.assistant?.chat) {
-      setCurrentQuestion(null)
-      setCurrentMessage(null)
-      setChatHistory((prevHistory) => [
+      setCurrentQuestion(null);
+      setCurrentMessage(null);
+      setChatHistory(prevHistory => [
         ...prevHistory,
         chatData.assistant!.chat!,
-      ])
+      ]);
       if (chatData?.assistant?.chat.session) {
-        setSessionId(chatData.assistant.chat.session.id)
+        setSessionId(chatData.assistant.chat.session.id);
       }
     }
-  }, [chatData])
+  }, [chatData]);
 
   const { data: subscriptionData, error: subscriptionError } = useSubscription<
     SubscriptionChatSubscription,
     SubscriptionChatSubscriptionVariables
-  >(SUBSCRIPTION_CHAT)
+  >(SUBSCRIPTION_CHAT);
 
   if (subscriptionError) {
     // eslint-disable-next-line no-console
-    console.error(subscriptionError)
+    console.error(subscriptionError);
   }
 
   useEffect(() => {
     if (subscriptionData?.chat?.done === false) {
       if (currentQuestion) {
-        setCurrentMessage(subscriptionData?.chat || null)
+        setCurrentMessage(subscriptionData?.chat || null);
       }
     }
-  }, [subscriptionData, currentQuestion])
+  }, [subscriptionData, currentQuestion]);
 
   const submitQuestion = (question: string) => {
-    setCurrentQuestion(question)
-  }
+    setCurrentQuestion(question);
+  };
 
   const value = {
     chatHistory,
@@ -161,17 +163,17 @@ export const ChatProvider: FC<ChatProviderProps> = ({ children }) => {
     useSession,
     toggleUseSession,
     resetSessionId,
-  }
+  };
 
-  return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>
-}
+  return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
+};
 
 const useChat = () => {
-  const context = useContext(ChatContext)
+  const context = useContext(ChatContext);
   if (context === undefined) {
-    throw new Error('useChat must be used within a ChatProvider')
+    throw new Error('useChat must be used within a ChatProvider');
   }
-  return context
-}
+  return context;
+};
 
-export default useChat
+export default useChat;

@@ -1,13 +1,15 @@
-import React from 'react'
-import { resolveLanguage, SyntaxHighlighter } from '../../utils/syntaxLanguages'
+import React from 'react';
+import {
+  resolveLanguage,
+  SyntaxHighlighter,
+} from '../../utils/syntaxLanguages';
 
 interface CodeProps {
-  code: string
-  languageId?: string
+  code: string;
+  languageId?: string;
 }
 
 const Code: React.FC<CodeProps> = ({ code, languageId = '' }) => {
-
   return (
     <div>
       <SyntaxHighlighter
@@ -28,7 +30,7 @@ const Code: React.FC<CodeProps> = ({ code, languageId = '' }) => {
         {code.trim() || ''}
       </SyntaxHighlighter>
     </div>
-  )
-}
+  );
+};
 
-export default Code
+export default Code;

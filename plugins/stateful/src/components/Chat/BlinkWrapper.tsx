@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode } from 'react';
 
 interface BlinkWrapperProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 const BlinkWrapper: React.FC<BlinkWrapperProps> = ({ children }) => {
@@ -24,7 +24,7 @@ const BlinkWrapper: React.FC<BlinkWrapperProps> = ({ children }) => {
       </style>
       <span className="animate-blink">{children}</span>
     </>
-  )
-}
+  );
+};
 
-export default BlinkWrapper
+export default BlinkWrapper;
