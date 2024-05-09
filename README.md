@@ -9,7 +9,7 @@
 
 Once you have determined the changes you want to apply to a new version of a plugin, you must run changeset to initiate the deployment process.
 
-```sh {"id":"01HXFA2X9Y008Y4K323EXFZE9C"}
+```sh {"id":"01HXFA2X9Y008Y4K323EXFZE9C","name":"run-cs"}
 yarn changeset
 ```
 
