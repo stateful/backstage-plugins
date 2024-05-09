@@ -32,7 +32,6 @@ interface ChatContextProps {
   toggleUseSession: () => void;
   resetSessionId: () => void;
   subscriptionError: ApolloError | undefined;
-  subscriptionLoading: boolean;
 }
 
 export const ChatContext = createContext<ChatContextProps | undefined>(
@@ -134,7 +133,6 @@ export const ChatProvider: FC<ChatProviderProps> = ({ children }) => {
 
   const {
     data: subscriptionData,
-    loading: subscriptionLoading,
     error: subscriptionError,
   } = useSubscription<
     SubscriptionChatSubscription,
@@ -169,7 +167,6 @@ export const ChatProvider: FC<ChatProviderProps> = ({ children }) => {
     toggleUseSession,
     resetSessionId,
     subscriptionError,
-    subscriptionLoading,
   };
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
