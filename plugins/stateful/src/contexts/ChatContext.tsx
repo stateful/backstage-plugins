@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react';
 
-import { useQuery, useSubscription } from '@apollo/client';
+import { ApolloError, useQuery, useSubscription } from '@apollo/client';
 import useLocalStorageState from 'use-local-storage-state';
 import {
   Chat,
@@ -31,6 +31,8 @@ interface ChatContextProps {
   useSession: boolean;
   toggleUseSession: () => void;
   resetSessionId: () => void;
+  subscriptionError: ApolloError | undefined;
+  subscriptionLoading: boolean;
 }
 
 export const ChatContext = createContext<ChatContextProps | undefined>(
@@ -130,11 +132,14 @@ export const ChatProvider: FC<ChatProviderProps> = ({ children }) => {
     }
   }, [chatData]);
 
-  const { data: subscriptionData, error: subscriptionError } = useSubscription<
+  const {
+    data: subscriptionData,
+    loading: subscriptionLoading,
+    error: subscriptionError,
+  } = useSubscription<
     SubscriptionChatSubscription,
     SubscriptionChatSubscriptionVariables
   >(SUBSCRIPTION_CHAT);
-
   if (subscriptionError) {
     // eslint-disable-next-line no-console
     console.error(subscriptionError);
@@ -163,6 +168,8 @@ export const ChatProvider: FC<ChatProviderProps> = ({ children }) => {
     useSession,
     toggleUseSession,
     resetSessionId,
+    subscriptionError,
+    subscriptionLoading,
   };
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;

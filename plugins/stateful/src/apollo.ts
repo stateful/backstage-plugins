@@ -47,6 +47,7 @@ export const initializeClient = (uri: string, token?: string) => {
   const sseLink = new SSELink({
     url: uri,
     headers,
+    retryAttempts: 0
   });
 
   const authLink = setContext(async () => {

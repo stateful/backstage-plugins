@@ -1,3 +1,4 @@
+import { Progress, ResponseErrorPanel } from '@backstage/core-components';
 import {
   Avatar,
   Box,
@@ -98,6 +99,8 @@ export const Chat = () => {
     currentQuestion,
     currentMessage,
     submitQuestion,
+    subscriptionError,
+    subscriptionLoading
   } = useChat();
 
   const loading = currentQuestion !== null;
@@ -113,6 +116,12 @@ export const Chat = () => {
       setInputValue('');
     }
   };
+  if (subscriptionLoading) {
+     return <Progress />;
+  }
+  if (subscriptionError) {
+    return <ResponseErrorPanel error={subscriptionError as Error} />;
+  }
 
   return (
     <Container>
