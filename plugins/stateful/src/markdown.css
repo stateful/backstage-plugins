@@ -1,0 +1,48 @@
+.markdown-body,
+.markdown-body table th,
+.markdown-body table td {
+  @apply bg-transparent text-current
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  @apply border
+}
+
+.markdown-body table th {
+  @apply bg-inherit
+}
+
+.markdown-body hr {
+  @apply border-t
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  @apply border-b border-gray-6
+}
+
+.markdown-body h1 {
+  @apply text-2xl
+}
+
+.markdown-body h2 {
+  @apply text-xl
+}
+
+.markdown-body .highlight pre, .markdown-body pre, .markdown-body span {
+  @apply bg-transparent p-0.5 inline whitespace-pre !important;
+  font-size: inherit;
+}
+
+.markdown-body ul, .markdown-body ol {
+  @apply pl-1
+}
+
+.markdown-body {
+  font-size: inherit;
+}

@@ -1,32 +1,29 @@
-import '@github/relative-time-element';
-import React from 'react';
 import {
-  Header,
-  Page,
   Content,
   ContentHeader,
+  Header,
+  Page,
   SupportButton,
 } from '@backstage/core-components';
-import { Activity } from '../Activity';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import '@github/relative-time-element';
 import Card from '@material-ui/core/Card';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
+import React from 'react';
+import { Activity } from '../Activity';
 
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { ApolloProvider } from '@apollo/client';
 import { CatalogFilterLayout } from '@backstage/plugin-catalog-react';
+import { initializeClient } from '../../apollo';
+import { ChatProvider } from '../../contexts/ChatContext';
+import { useGetMe } from '../../hooks/api/me/useGetMe';
+import useUrl from '../../hooks/api/useUrl';
+import { Chat } from '../Chat';
 import { Integration } from '../Integration';
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-    },
-  },
-});
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -53,23 +50,39 @@ const useStyles = makeStyles(theme => ({
 
 export const Splash = () => {
   const classes = useStyles();
-  const [section, setSection] = React.useState('integration');
+  const [section, setSection] = React.useState('activity');
+
+  const { getUrl } = useUrl();
+  const uri = getUrl('/api/proxy/stateful/graphql');
+
+  const { data: userData } = useGetMe();
+
+  const apolloClient = initializeClient(uri, userData?.statefulToken);
 
   const sections = [
-    {
-      label: 'Integration',
-      key: 'integration',
-      component: <Integration />,
-    },
     {
       label: 'Activity',
       key: 'activity',
       component: <Activity />,
     },
+    {
+      label: 'Chat',
+      key: 'chat',
+      component: (
+        <ChatProvider>
+          <Chat />
+        </ChatProvider>
+      ),
+    },
+    {
+      label: 'Integration',
+      key: 'integration',
+      component: <Integration />,
+    },
   ];
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <ApolloProvider client={apolloClient}>
       <Page themeId="tool">
         <Header
           title="Welcome to Stateful!"
@@ -120,6 +133,6 @@ export const Splash = () => {
           </CatalogFilterLayout>
         </Content>
       </Page>
-    </QueryClientProvider>
+    </ApolloProvider>
   );
 };

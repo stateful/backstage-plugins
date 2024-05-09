@@ -11,7 +11,7 @@ import useUpdateMe from '../../hooks/api/me/useUpdateMe';
 import useGetConfig from '../../hooks/useGetConfig';
 
 const useStyles = makeStyles(theme => {
-  const border = `1px solid ${theme.palette.border}`
+  const border = `1px solid ${theme.palette.border}`;
 
   return {
     textarea: {

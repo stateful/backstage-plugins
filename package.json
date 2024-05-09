@@ -22,6 +22,7 @@
     "lint": "backstage-cli repo lint --since origin/master",
     "lint:all": "backstage-cli repo lint",
     "prettier:check": "prettier --check .",
+    "prettier:fix": "prettier '**/*.{ts,tsx}' --write",
     "new": "backstage-cli new --scope internal",
     "release": "yarn build:all && changeset publish"
   },
