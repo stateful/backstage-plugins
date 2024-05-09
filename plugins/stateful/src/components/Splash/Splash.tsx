@@ -10,7 +10,6 @@ import Card from '@material-ui/core/Card';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import { Activity } from '../Activity';
 
@@ -21,17 +20,11 @@ import { ApolloProvider } from '@apollo/client';
 import { CatalogFilterLayout } from '@backstage/plugin-catalog-react';
 import { initializeClient } from '../../apollo';
 import { ChatProvider } from '../../contexts/ChatContext';
+import { useGetMe } from '../../hooks/api/me/useGetMe';
 import useUrl from '../../hooks/api/useUrl';
 import { Chat } from '../Chat';
 import { Integration } from '../Integration';
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-    },
-  },
-});
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -63,7 +56,9 @@ export const Splash = () => {
   const { getUrl } = useUrl();
   const uri = getUrl('/api/proxy/stateful/graphql');
 
-  const apolloClient = initializeClient(uri)
+  const { data: userData } = useGetMe();
+
+  const apolloClient = initializeClient(uri, userData?.statefulToken)
 
   const sections = [
     {
@@ -86,8 +81,7 @@ export const Splash = () => {
   ];
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ApolloProvider client={apolloClient}>
+    <ApolloProvider client={apolloClient}>
       <Page themeId="tool">
         <Header
           title="Welcome to Stateful!"
@@ -138,7 +132,6 @@ export const Splash = () => {
           </CatalogFilterLayout>
         </Content>
       </Page>
-      </ApolloProvider>
-    </QueryClientProvider>
+    </ApolloProvider>
   );
 };

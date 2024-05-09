@@ -16,7 +16,7 @@ export const StatefulPage = statefulPlugin.provide(
   createRoutableExtension({
     name: 'StatefulPage',
     component: () =>
-      import('./components/Splash').then(m => m.Splash),
+      import('./App').then(m => m.App),
     mountPoint: rootRouteRef,
   }),
 );
