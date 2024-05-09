@@ -29,7 +29,7 @@ const useUpdateMe = () => {
         },
       );
     },
-    onMutate: async () => {
+    onSuccess: async () => {
       queryClient.removeQueries({
         queryKey: [GET_ME],
       });

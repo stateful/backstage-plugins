@@ -24,6 +24,7 @@ import { useGetMe } from '../../hooks/api/me/useGetMe';
 import useUrl from '../../hooks/api/useUrl';
 import { Chat } from '../Chat';
 import { Integration } from '../Integration';
+import { SectionWrapper } from '../common/SectionWrapper/SectionWrapper';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -63,15 +64,21 @@ export const Splash = () => {
     {
       label: 'Activity',
       key: 'activity',
-      component: <Activity />,
+      component: (
+        <SectionWrapper>
+          <Activity />
+        </SectionWrapper>
+      ),
     },
     {
       label: 'Chat',
       key: 'chat',
       component: (
-        <ChatProvider>
-          <Chat />
-        </ChatProvider>
+        <SectionWrapper>
+          <ChatProvider>
+            <Chat />
+          </ChatProvider>
+        </SectionWrapper>
       ),
     },
     {
