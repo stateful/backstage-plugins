@@ -39,22 +39,19 @@ class SSELink extends ApolloLink {
 export const initializeClient = (uri: string, token?: string) => {
   const httpLink = new HttpLink({ uri });
 
+  const headers = {
+    authorization: `Bearer ${token}`,
+    'Auth-Provider': 'auth0',
+  };
+
   const sseLink = new SSELink({
     url: uri,
-    headers: () => {
-      return {
-        authorization: `Bearer ${token}`,
-        'Auth-Provider': 'auth0',
-      };
-    },
+    headers,
   });
 
   const authLink = setContext(async () => {
     return {
-      headers: {
-        authorization: `Bearer ${token}`,
-        'Auth-Provider': 'auth0',
-      },
+      headers,
     };
   });
 
