@@ -1,5 +1,11 @@
 # @statefulhq/backstage-plugin-stateful
 
+## 1.1.0
+
+### Minor Changes
+
+- 049166f: Integrate platform Chat Ops
+
 ## 1.0.0
 
 ### Major Changes
