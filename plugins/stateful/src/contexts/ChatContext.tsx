@@ -1,4 +1,4 @@
-import {
+import React, {
   FC,
   ReactNode,
   createContext,
@@ -56,8 +56,10 @@ export const ChatProvider: FC<ChatProviderProps> = ({ children }) => {
       const parsedHistory: Chat[] = JSON.parse(storedChatHistory)
       setChatHistory(parsedHistory)
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Error parsing stored chat history:', error)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Save chat history to local storage whenever it changes
@@ -75,9 +77,15 @@ export const ChatProvider: FC<ChatProviderProps> = ({ children }) => {
       const historyJson = JSON.stringify(simpleChatHistory)
       setStoredChatHistory(historyJson)
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Error stringifying chat history:', error)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatHistory])
+
+  const resetSessionId = () => {
+    setSessionId(null)
+  }
 
   const clearHistories = () => {
     resetSessionId()
@@ -88,10 +96,6 @@ export const ChatProvider: FC<ChatProviderProps> = ({ children }) => {
 
   const toggleUseSession = () => {
     setUseSession((prev) => !prev)
-  }
-
-  const resetSessionId = () => {
-    setSessionId(null)
   }
 
   const [currentQuestion, setCurrentQuestion] = useState<string | null>(null)
@@ -130,6 +134,7 @@ export const ChatProvider: FC<ChatProviderProps> = ({ children }) => {
   >(SUBSCRIPTION_CHAT)
 
   if (subscriptionError) {
+    // eslint-disable-next-line no-console
     console.error(subscriptionError)
   }
 
@@ -139,7 +144,7 @@ export const ChatProvider: FC<ChatProviderProps> = ({ children }) => {
         setCurrentMessage(subscriptionData?.chat || null)
       }
     }
-  }, [subscriptionData])
+  }, [subscriptionData, currentQuestion])
 
   const submitQuestion = (question: string) => {
     setCurrentQuestion(question)

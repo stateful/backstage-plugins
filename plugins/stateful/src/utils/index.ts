@@ -60,6 +60,6 @@ export function getUriHandlerLink(
 }
 
 export function getNumberFromMetadata(entry: Hit, key: string): number {
-  const m = entry?.metadata?.find((entry) => entry?.key === key)
+  const m = entry?.metadata?.find((value) => value?.key === key)
   return parseInt(m?.value ?? '0', 10)
 }
