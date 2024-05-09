@@ -1,5 +1,11 @@
 # @statefulhq/backstage-plugin-stateful
 
+## 1.1.1
+
+### Patch Changes
+
+- c8e9a8a: Show integration message
+
 ## 1.1.0
 
 ### Minor Changes
