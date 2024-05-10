@@ -1,5 +1,11 @@
 # @statefulhq/backstage-plugin-stateful
 
+## 1.1.2
+
+### Patch Changes
+
+- 1f7d0c0: Handle subscription errors
+
 ## 1.1.1
 
 ### Patch Changes
