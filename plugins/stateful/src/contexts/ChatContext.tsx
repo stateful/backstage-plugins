@@ -110,7 +110,7 @@ export const ChatProvider: FC<ChatProviderProps> = ({ children }) => {
 
   const { data: userData } = useQuery<GetMeQuery, GetMeQueryVariables>(GET_ME);
 
-  const currentUser =  userData?.me
+  const currentUser = userData?.me;
   const { data: chatData } = useQuery<
     GetChatResponseQuery,
     GetChatResponseQueryVariables

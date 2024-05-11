@@ -127,7 +127,10 @@ export const Chat = () => {
         <WelcomeBox />
         {chatHistory.map(chat => (
           <>
-            <QuestionBox question={chat.question} avatar={currentUser?.photoUrl} />
+            <QuestionBox
+              question={chat.question}
+              avatar={currentUser?.photoUrl}
+            />
             <ResponseBox
               response={chat.response}
               question={chat.question}
@@ -136,7 +139,10 @@ export const Chat = () => {
           </>
         ))}
         {currentQuestion && (
-          <QuestionBox question={currentQuestion} avatar={currentUser?.photoUrl} />
+          <QuestionBox
+            question={currentQuestion}
+            avatar={currentUser?.photoUrl}
+          />
         )}
         {currentQuestion && !currentMessage && (
           <Grid item xs={8}>
