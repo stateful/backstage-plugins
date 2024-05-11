@@ -35,7 +35,7 @@ interface ChatContextProps {
   toggleUseSession: () => void;
   resetSessionId: () => void;
   subscriptionError: ApolloError | undefined;
-  currentUser: User;
+  currentUser: User | null;
 }
 
 export const ChatContext = createContext<ChatContextProps | undefined>(
@@ -110,7 +110,7 @@ export const ChatProvider: FC<ChatProviderProps> = ({ children }) => {
 
   const { data: userData } = useQuery<GetMeQuery, GetMeQueryVariables>(GET_ME);
 
-  const currentUser = userData?.me;
+  const currentUser = userData?.me as User;
   const { data: chatData } = useQuery<
     GetChatResponseQuery,
     GetChatResponseQueryVariables

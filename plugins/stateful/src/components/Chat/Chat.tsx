@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import SendIcon from '@material-ui/icons/Send';
 import React, { useMemo, useState } from 'react';
-import { Chat as ChatType, Maybe } from '../../__generated__/graphql';
+import { Chat as ChatType } from '../../__generated__/graphql';
 import useChat from '../../contexts/ChatContext';
 import '../../markdown.css';
 import { toMetahash } from '../../utils';
@@ -46,7 +46,7 @@ const WelcomeBox = () => {
 
 type QuestionBoxProps = {
   question: ChatType['question'];
-  avatar: Maybe<string> | undefined;
+  avatar: string;
 };
 
 type ResponseBoxProps = {
@@ -129,7 +129,7 @@ export const Chat = () => {
           <>
             <QuestionBox
               question={chat.question}
-              avatar={currentUser?.photoUrl}
+              avatar={currentUser?.photoUrl as string}
             />
             <ResponseBox
               response={chat.response}
@@ -141,7 +141,7 @@ export const Chat = () => {
         {currentQuestion && (
           <QuestionBox
             question={currentQuestion}
-            avatar={currentUser?.photoUrl}
+            avatar={currentUser?.photoUrl  as string}
           />
         )}
         {currentQuestion && !currentMessage && (
