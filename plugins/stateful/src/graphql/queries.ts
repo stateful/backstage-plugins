@@ -49,3 +49,12 @@ export const GET_CHAT_RESPONSE = gql(`
     }
   }
 `);
+
+export const GET_ME = gql(`
+  query getMe {
+    me {
+      id
+      photoUrl
+    }
+  }
+`);

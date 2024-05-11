@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import SendIcon from '@material-ui/icons/Send';
 import React, { useMemo, useState } from 'react';
-import { Chat as ChatType } from '../../__generated__/graphql';
+import { Chat as ChatType, Maybe } from '../../__generated__/graphql';
 import useChat from '../../contexts/ChatContext';
 import '../../markdown.css';
 import { toMetahash } from '../../utils';
@@ -46,6 +46,7 @@ const WelcomeBox = () => {
 
 type QuestionBoxProps = {
   question: ChatType['question'];
+  avatar: Maybe<string> | undefined;
 };
 
 type ResponseBoxProps = {
@@ -55,12 +56,12 @@ type ResponseBoxProps = {
   done?: boolean;
 };
 
-const QuestionBox: React.FC<QuestionBoxProps> = ({ question }) => {
+const QuestionBox: React.FC<QuestionBoxProps> = ({ question, avatar }) => {
   const classes = useStyles();
   return (
     <Grid item xs={12} className={classes.question}>
       <Grid item xs={8} className={classes.avatar}>
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+        <Avatar src={avatar} alt="User" />
         <Box m={1}>{question}</Box>
       </Grid>
     </Grid>
@@ -100,6 +101,7 @@ export const Chat = () => {
     currentMessage,
     submitQuestion,
     subscriptionError,
+    currentUser,
   } = useChat();
 
   const loading = currentQuestion !== null;
@@ -125,7 +127,7 @@ export const Chat = () => {
         <WelcomeBox />
         {chatHistory.map(chat => (
           <>
-            <QuestionBox question={chat.question} />
+            <QuestionBox question={chat.question} avatar={currentUser?.photoUrl} />
             <ResponseBox
               response={chat.response}
               question={chat.question}
@@ -133,7 +135,9 @@ export const Chat = () => {
             />
           </>
         ))}
-        {currentQuestion && <QuestionBox question={currentQuestion} />}
+        {currentQuestion && (
+          <QuestionBox question={currentQuestion} avatar={currentUser?.photoUrl} />
+        )}
         {currentQuestion && !currentMessage && (
           <Grid item xs={8}>
             <LinearProgress />

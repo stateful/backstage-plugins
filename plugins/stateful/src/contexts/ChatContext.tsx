@@ -14,10 +14,13 @@ import {
   ChatMessage,
   GetChatResponseQuery,
   GetChatResponseQueryVariables,
+  GetMeQuery,
+  GetMeQueryVariables,
   SubscriptionChatSubscription,
   SubscriptionChatSubscriptionVariables,
+  User,
 } from '../__generated__/graphql';
-import { GET_CHAT_RESPONSE } from '../graphql/queries';
+import { GET_CHAT_RESPONSE, GET_ME } from '../graphql/queries';
 import { SUBSCRIPTION_CHAT } from '../graphql/subscriptions';
 
 interface ChatContextProps {
@@ -32,6 +35,7 @@ interface ChatContextProps {
   toggleUseSession: () => void;
   resetSessionId: () => void;
   subscriptionError: ApolloError | undefined;
+  currentUser: User;
 }
 
 export const ChatContext = createContext<ChatContextProps | undefined>(
@@ -104,6 +108,9 @@ export const ChatProvider: FC<ChatProviderProps> = ({ children }) => {
     null,
   );
 
+  const { data: userData } = useQuery<GetMeQuery, GetMeQueryVariables>(GET_ME);
+
+  const currentUser =  userData?.me
   const { data: chatData } = useQuery<
     GetChatResponseQuery,
     GetChatResponseQueryVariables
@@ -131,10 +138,7 @@ export const ChatProvider: FC<ChatProviderProps> = ({ children }) => {
     }
   }, [chatData]);
 
-  const {
-    data: subscriptionData,
-    error: subscriptionError,
-  } = useSubscription<
+  const { data: subscriptionData, error: subscriptionError } = useSubscription<
     SubscriptionChatSubscription,
     SubscriptionChatSubscriptionVariables
   >(SUBSCRIPTION_CHAT);
@@ -167,6 +171,7 @@ export const ChatProvider: FC<ChatProviderProps> = ({ children }) => {
     toggleUseSession,
     resetSessionId,
     subscriptionError,
+    currentUser,
   };
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
