@@ -38,7 +38,7 @@ const useStyles = makeStyles({
 const WelcomeBox = () => {
   const { resetTypingKey } = useChat();
   return (
-    <Grid item xs={8}>
+    <Grid item  xs={12} lg={8}>
       <TypewriterEmptyState key={resetTypingKey} />
     </Grid>
   );
@@ -59,8 +59,8 @@ type ResponseBoxProps = {
 const QuestionBox: React.FC<QuestionBoxProps> = ({ question, avatar }) => {
   const classes = useStyles();
   return (
-    <Grid item xs={12} className={classes.question}>
-      <Grid item xs={8} className={classes.avatar}>
+    <Grid item xs={12} lg={12} className={classes.question}>
+      <Grid item xs={12} lg={8} className={classes.avatar}>
         <Avatar src={avatar} alt="User" />
         <Box m={1}>{question}</Box>
       </Grid>
@@ -80,7 +80,7 @@ const ResponseBox: React.FC<ResponseBoxProps> = ({
   }, [metahash]);
 
   return (
-    <Grid item xs={8}>
+    <Grid item  xs={12} lg={8}>
       {done ? (
         <MarkdownRenderer languageId={languageId}>{response}</MarkdownRenderer>
       ) : (
@@ -123,7 +123,7 @@ export const Chat = () => {
 
   return (
     <Container>
-      <Grid container xs={12} justifyContent="center" alignItems="center">
+      <Grid container xs={12} lg={12} justifyContent="center" alignItems="center">
         <WelcomeBox />
         {chatHistory.map(chat => (
           <>
@@ -145,7 +145,7 @@ export const Chat = () => {
           />
         )}
         {currentQuestion && !currentMessage && (
-          <Grid item xs={8}>
+          <Grid item  xs={12} lg={8}>
             <LinearProgress />
           </Grid>
         )}
@@ -158,7 +158,7 @@ export const Chat = () => {
             />
           </>
         )}
-        <Grid item xs={8} className={classes.input}>
+        <Grid item  xs={12} lg={8} className={classes.input}>
           <OutlinedInput
             id=""
             fullWidth
