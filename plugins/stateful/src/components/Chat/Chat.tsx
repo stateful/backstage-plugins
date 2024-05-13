@@ -38,7 +38,7 @@ const useStyles = makeStyles({
 const WelcomeBox = () => {
   const { resetTypingKey } = useChat();
   return (
-    <Grid item xs={8}>
+    <Grid item  xs={12} lg={8}>
       <TypewriterEmptyState key={resetTypingKey} />
     </Grid>
   );
@@ -46,6 +46,7 @@ const WelcomeBox = () => {
 
 type QuestionBoxProps = {
   question: ChatType['question'];
+  avatar: string;
 };
 
 type ResponseBoxProps = {
@@ -55,12 +56,12 @@ type ResponseBoxProps = {
   done?: boolean;
 };
 
-const QuestionBox: React.FC<QuestionBoxProps> = ({ question }) => {
+const QuestionBox: React.FC<QuestionBoxProps> = ({ question, avatar }) => {
   const classes = useStyles();
   return (
-    <Grid item xs={12} className={classes.question}>
-      <Grid item xs={8} className={classes.avatar}>
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+    <Grid item xs={12} lg={12} className={classes.question}>
+      <Grid item xs={12} lg={8} className={classes.avatar}>
+        <Avatar src={avatar} alt="User" />
         <Box m={1}>{question}</Box>
       </Grid>
     </Grid>
@@ -79,7 +80,7 @@ const ResponseBox: React.FC<ResponseBoxProps> = ({
   }, [metahash]);
 
   return (
-    <Grid item xs={8}>
+    <Grid item  xs={12} lg={8}>
       {done ? (
         <MarkdownRenderer languageId={languageId}>{response}</MarkdownRenderer>
       ) : (
@@ -100,6 +101,7 @@ export const Chat = () => {
     currentMessage,
     submitQuestion,
     subscriptionError,
+    currentUser,
   } = useChat();
 
   const loading = currentQuestion !== null;
@@ -121,11 +123,14 @@ export const Chat = () => {
 
   return (
     <Container>
-      <Grid container xs={12} justifyContent="center" alignItems="center">
+      <Grid container xs={12} lg={12} justifyContent="center" alignItems="center">
         <WelcomeBox />
         {chatHistory.map(chat => (
           <>
-            <QuestionBox question={chat.question} />
+            <QuestionBox
+              question={chat.question}
+              avatar={currentUser?.photoUrl as string}
+            />
             <ResponseBox
               response={chat.response}
               question={chat.question}
@@ -133,9 +138,14 @@ export const Chat = () => {
             />
           </>
         ))}
-        {currentQuestion && <QuestionBox question={currentQuestion} />}
+        {currentQuestion && (
+          <QuestionBox
+            question={currentQuestion}
+            avatar={currentUser?.photoUrl  as string}
+          />
+        )}
         {currentQuestion && !currentMessage && (
-          <Grid item xs={8}>
+          <Grid item  xs={12} lg={8}>
             <LinearProgress />
           </Grid>
         )}
@@ -148,7 +158,7 @@ export const Chat = () => {
             />
           </>
         )}
-        <Grid item xs={8} className={classes.input}>
+        <Grid item  xs={12} lg={8} className={classes.input}>
           <OutlinedInput
             id=""
             fullWidth

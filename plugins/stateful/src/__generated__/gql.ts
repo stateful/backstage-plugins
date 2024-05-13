@@ -15,6 +15,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
     "\n  query GetLogList($page: Int!, $take: Int, $filters: JSON) {\n    logs(page: $page, take: $take, filters: $filters) {\n      data {\n        createTime\n        data\n        id\n        logType {\n          description\n          name\n        }\n        user {\n          id\n          email\n          photoUrl\n          displayName\n        }\n      }\n      meta {\n        totalPages\n      }\n    }\n  }\n": types.GetLogListDocument,
     "\n  query getChatResponse($input: ChatInput!) {\n    assistant {\n      chat(input: $input) {\n        session {\n          id\n          expirySecs\n          collectionName\n        }\n        question\n        response\n        commands\n        hits {\n          document\n          distance\n          metadata {\n            key\n            value\n          }\n        }\n      }\n    }\n  }\n": types.GetChatResponseDocument,
+    "\n  query getMe {\n    me {\n      id\n      photoUrl\n    }\n  }\n": types.GetMeDocument,
     "\n  subscription SubscriptionChat {\n    chat {\n      message\n      token\n      done\n    }\n  }\n": types.SubscriptionChatDocument,
 };
 
@@ -40,6 +41,10 @@ export function gql(source: "\n  query GetLogList($page: Int!, $take: Int, $filt
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  query getChatResponse($input: ChatInput!) {\n    assistant {\n      chat(input: $input) {\n        session {\n          id\n          expirySecs\n          collectionName\n        }\n        question\n        response\n        commands\n        hits {\n          document\n          distance\n          metadata {\n            key\n            value\n          }\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query getChatResponse($input: ChatInput!) {\n    assistant {\n      chat(input: $input) {\n        session {\n          id\n          expirySecs\n          collectionName\n        }\n        question\n        response\n        commands\n        hits {\n          document\n          distance\n          metadata {\n            key\n            value\n          }\n        }\n      }\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query getMe {\n    me {\n      id\n      photoUrl\n    }\n  }\n"): (typeof documents)["\n  query getMe {\n    me {\n      id\n      photoUrl\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

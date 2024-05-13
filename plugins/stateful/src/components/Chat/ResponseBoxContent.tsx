@@ -132,14 +132,14 @@ const ResponseBoxContent: React.FC<ResponseBoxContentProps> = ({ hits }) => {
       </Grid>
 
       <Grid item xs={12} className={classes.actions}>
-        <Grid xs={2} className={classes.actionCells}>
+        <Grid  xs={12} lg={2} className={classes.actionCells}>
           <LayersIcon />
           <Box component="span" m={1}>
             Cell {index + 1} of {total}
           </Box>
         </Grid>
 
-        <Grid xs={10} className={classes.actionLinks}>
+        <Grid  xs={12} lg={10} className={classes.actionLinks}>
           <ChatCopyLink commands={metahash.value} />
           <ButtonWrapper link={vscodeUri!}>
             <Box component="span" m={1}>
