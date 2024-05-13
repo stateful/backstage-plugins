@@ -1,5 +1,11 @@
 # @statefulhq/backstage-plugin-stateful
 
+## 1.2.0
+
+### Minor Changes
+
+- 6de6c3a: Adding user logo to chat
+
 ## 1.1.2
 
 ### Patch Changes
