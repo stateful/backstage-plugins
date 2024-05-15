@@ -16,7 +16,7 @@ yarn --cwd packages/app add @statefulhq/backstage-plugin-stateful
 
 Modify your app routes in packages/app/src/App.tsx to include the Stateful component exported from the plugin, for example:
 
-```sh {"id":"01HXYGWX7BKS5K8DMHJKAJQTGK"}
+```diff {"id":"01HXYGWX7BKS5K8DMHJKAJQTGK"}
 +  import { StatefulPage } from '@statefulhq/backstage-plugin-stateful';
 
 const routes = (
@@ -36,7 +36,7 @@ yarn --cwd packages/backend add @statefulhq/backstage-plugin-stateful-backend
 
 Modify your index fine in packages/backend/src/index.ts to import the Stateful backend plugin, for example:
 
-```sh {"id":"01HXYJ5582YV1FJF0ADBG17X62"}
+```diff {"id":"01HXYJ5582YV1FJF0ADBG17X62"}
 +   backend.add(import('@statefulhq/backstage-plugin-stateful-backend'));
 backend.start();
 ```
