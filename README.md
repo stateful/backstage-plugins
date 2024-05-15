@@ -34,6 +34,13 @@ Now you should install the backend plugin:
 yarn --cwd packages/backend add @statefulhq/backstage-plugin-stateful-backend
 ```
 
+Modify your index fine in packages/backend/src/index.ts to import the Stateful backend plugin, for example:
+
+```sh {"id":"01HXYJ5582YV1FJF0ADBG17X62"}
++   backend.add(import('@statefulhq/backstage-plugin-stateful-backend'));
+backend.start();
+```
+
 Now you should configure a proxy and the stateful param so the plugin can call correctly our platform API. inside your `app-config.yaml` you should add this.
 
 ```sh {"id":"01HXYHQF8BSN02M018ZNFKABF4"}
