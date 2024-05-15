@@ -27,6 +27,17 @@ const routes = (
     {/* other routes... */}
 ```
 
+Add a Stateful icon to the Sidebar to easily access the Stateful. In packages/app/src/components/Root.tsx add:
+
+```diff {"id":"01HXYMR716HAGMMAK7E600B583"}
++ import FolderSharedIcon from '@material-ui/icons/FolderShared';
+
+  <SidebarDivider />
+  <SidebarScrollWrapper>
++   <SidebarItem icon={FolderSharedIcon} to="/stateful" text="Stateful" />
+    {/* ...other sidebar-items */}
+```
+
 Now you should install the backend plugin:
 
 ```sh {"id":"01HXYHKZ2KTPJ5YGCDVT13S5XZ"}
