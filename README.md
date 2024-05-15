@@ -5,6 +5,53 @@
 - [Stateful](plugins/stateful/README.md)
 - [Stateful Backend](plugins/stateful-backend/README.md)
 
+# Getting Started
+
+First install the frontend plugin into your app:
+
+```sh {"id":"01HXYGSDS7TVH8EGWQS9QP9C5G"}
+# From your Backstage root directory
+yarn --cwd packages/app add @statefulhq/backstage-plugin-stateful
+```
+
+Modify your app routes in packages/app/src/App.tsx to include the Stateful component exported from the plugin, for example:
+
+```sh {"id":"01HXYGWX7BKS5K8DMHJKAJQTGK"}
++  import { StatefulPage } from '@statefulhq/backstage-plugin-stateful';
+
+const routes = (
+
+  <FlatRoutes>
+    ...
++   <Route path="/stateful" element={<StatefulPage />} />
+    {/* other routes... */}
+```
+
+Now you should install the backend plugin:
+
+```sh {"id":"01HXYHKZ2KTPJ5YGCDVT13S5XZ"}
+# From your Backstage root directory
+yarn --cwd packages/backend add @statefulhq/backstage-plugin-stateful-backend
+```
+
+Now you should configure a proxy and the stateful param so the plugin can call correctly our platform API. inside your `app-config.yaml` you should add this.
+
+```sh {"id":"01HXYHQF8BSN02M018ZNFKABF4"}
+proxy:
+  endpoints:
+    '/stateful':
+      target: https://api.us-central1.stateful.com
+      allowedHeaders:
+        - "Authorization"
+        - "Auth-Provider"
+        - "Content-Type"
+
+stateful:
+  appUrl: https://us-central1.stateful.com
+
+
+```
+
 ## Publish plugins to NPM
 
 Once you have determined the changes you want to apply to a new version of a plugin, you must run changeset to initiate the deployment process.
