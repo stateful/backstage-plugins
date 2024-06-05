@@ -55,7 +55,7 @@ export function getUriHandlerLink(
   cellIndex: string,
   command = 'setup',
 ): string {
-  return `vscode://stateful.runme?command=${command}&repository=${repositoryInfo.gitRemote}&fileToOpen=${fileName}&cell=${cellIndex}`;
+  return `vscode://stateful.platform?command=${command}&repository=${repositoryInfo.gitRemote}&fileToOpen=${fileName}&cell=${cellIndex}`;
 }
 
 export function getNumberFromMetadata(entry: Hit, key: string): number {
