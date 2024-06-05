@@ -1,5 +1,11 @@
 # @statefulhq/backstage-plugin-stateful
 
+## 1.2.1
+
+### Patch Changes
+
+- 3bfaf1c: Use Stateful extension
+
 ## 1.2.0
 
 ### Minor Changes
