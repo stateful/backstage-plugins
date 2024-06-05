@@ -76,7 +76,7 @@ export const Integration = () => {
         title="Integrate Stateful in Backstage"
         subheader="Add your Stateful token to integrate Stateful in Backstage"
         action={
-          <LinkButton to={`${appUrl}/token`}>
+          <LinkButton to={`${appUrl}/profile`}>
             Get your Stateful token
           </LinkButton>
         }
